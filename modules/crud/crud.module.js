@@ -1,3 +1,6 @@
+const constants = require('../helpers/constants.module');
+const messages = require('../helpers/messages.module');
+
 class Crud {
   constructor(Schema) {
     this.Schema = Schema;
@@ -51,9 +54,13 @@ class Crud {
    * @returns {Promise<Array<Object>>} - the list of documents
    */
   async update(selector, data) {
-    await this.Schema.updateMany(selector, {
+    const result = await this.Schema.updateMany(selector, {
       $set: data
     });
+
+    if (!result.ok && !result.n) {
+      throw new Error(constants.messages.updateProblem);
+    }
 
     return this.find(selector);
   }

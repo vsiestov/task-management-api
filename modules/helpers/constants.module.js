@@ -9,9 +9,14 @@ module.exports.messages = {
   success: 'Your request successfully completed',
   undefinedUser: 'User is not found',
   wrongPassword: 'Your email or password is invalid',
+  undefinedRecord: 'Requested record is not found',
+  updateProblem: 'Cannot update this item',
   invalid: {
     email: 'Your email is not valid',
     password: 'Password should have at least 6 characters',
-    required: 'This field is required'
+    required: 'This field is required',
+    description: 'Description is required field and must include at least 10 characters',
+    due: 'You provided incorrect value for due date',
+    identity: 'Identity of this entity is not correct'
   }
 };

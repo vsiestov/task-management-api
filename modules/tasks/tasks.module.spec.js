@@ -21,7 +21,7 @@ describe('Tasks testing module', () => {
     item = task;
 
     expect(task.description).to.equal(taskData.description);
-    expect(task.due).to.equal(taskData.due);
+    expect(task.due.toString()).to.equal(taskData.due.toString());
   });
 
   it('should update a task', async () => {

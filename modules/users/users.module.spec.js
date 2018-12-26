@@ -25,7 +25,7 @@ describe('Users testing module', () => {
     expect(user.firstName).to.equal(userData.firstName);
     expect(user.lastName).to.equal(userData.lastName);
     expect(user.email).to.equal(userData.email);
-    expect(user).to.have.property('id');
+    expect(user).to.have.property('_id');
   });
 
   it('should update a user', async () => {

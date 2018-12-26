@@ -7,11 +7,13 @@ const mongoose = require('mongoose');
  * @property {String} _id
  * @property {String} description
  * @property {Date} due
+ * @property {ObjectId} userId
  */
 
 const tasksSchema = mongoose.Schema({
   description: String,
-  due: Date
+  due: Date,
+  userId: mongoose.Schema.Types.ObjectId
 });
 
 module.exports = mongoose.model('tasks', tasksSchema);

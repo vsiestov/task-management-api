@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": " NODE_ENV=test mocha modules/**/*.spec.js routes/*.spec.js --exit"
   },
   "dependencies": {
     "bcrypt": "^3.0.3",
