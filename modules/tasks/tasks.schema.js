@@ -16,4 +16,9 @@ const tasksSchema = mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId
 });
 
+
+tasksSchema.index({
+  userId: 1
+});
+
 module.exports = mongoose.model('tasks', tasksSchema);

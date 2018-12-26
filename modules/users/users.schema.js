@@ -18,4 +18,10 @@ const userSchema = mongoose.Schema({
   password: String
 });
 
+userSchema.index({
+  email: 1
+}, {
+  unique: true
+});
+
 module.exports = mongoose.model('users', userSchema);
