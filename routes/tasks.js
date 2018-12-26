@@ -77,7 +77,7 @@ router.put('/:id',
         _id: params.id
       }, data);
 
-      res.send(result[0]);
+      return res.send(result[0]);
     } catch ($exception) {
       return next($exception);
     }

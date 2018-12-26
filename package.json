@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": " NODE_ENV=test mocha modules/**/*.spec.js routes/*.spec.js --exit"
+    "test": " NODE_ENV=test mocha modules/**/*.spec.js routes/*.spec.js --exit",
+    "eslint": "eslint modules/ routes/ --fix"
   },
   "dependencies": {
     "bcrypt": "^3.0.3",

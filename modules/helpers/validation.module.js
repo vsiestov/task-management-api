@@ -82,7 +82,7 @@ const endpoints = {
       validationFields.required.due
     ],
     readOne: [
-      validationFields.required.identity,
+      validationFields.required.identity
     ],
     update: [
       validationFields.required.identity,
