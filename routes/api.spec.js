@@ -46,17 +46,7 @@ describe('Sign in/up tests', () => {
       .post(`${url}/sign-up`)
       .send(user)
       .set('Accept', 'application/json')
-      .expect(200)
-      .then((response) => {
-        return response.body;
-      })
-      .then((response) => {
-        expect(response).to.have.property('_id');
-        expect(response).not.to.have.property('password');
-        expect(response.token).not.to.be.undefined;
-        expect(response.firstName).to.equal(user.firstName);
-        expect(response.lastName).to.equal(user.lastName);
-      });
+      .expect(422);
   });
 
   it('should sign up with invalid params', () => {
