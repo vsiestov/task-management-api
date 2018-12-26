@@ -13,7 +13,7 @@ router.get('/me', access.verifyToken, (req, res) => {
   res.send(req.user);
 });
 
-router.post('/sign-in', validation.endpoints.signIn, validation.check, async (req, res) => {
+router.post('/sign-in', validation.endpoints.signIn, validation.check, async (req, res, next) => {
   const body = req.body;
 
   const user = await users.findOne({
@@ -21,20 +21,29 @@ router.post('/sign-in', validation.endpoints.signIn, validation.check, async (re
   });
 
   if (!user) {
-    throw messages.error(constants.messages.undefinedUser);
+    return next(messages.error(constants.messages.undefinedUser));
   }
 
   if (!await access.compareHashed(body.password, user.password)) {
-    throw messages.error(constants.messages.wrongPassword);
+    return next(messages.error(constants.messages.wrongPassword));
   }
 
   user.token = access.createToken(user);
 
-  res.send(_.omit(user, ['password']));
+  return res.send(_.omit(user, ['password']));
 });
 
-router.post('/sign-up', validation.endpoints.signUp, validation.check, async (req, res) => {
+router.post('/sign-up', validation.endpoints.signUp, validation.check, async (req, res, next) => {
   const body = req.body;
+
+  const registered = await users.findOne({
+    email: body.email
+  });
+
+  if (registered) {
+    return next(messages.error(constants.messages.userExists));
+  }
+
   const user = await users.create(Object.assign({
   }, body, {
     password: await access.generateHash(body.password)
@@ -42,7 +51,7 @@ router.post('/sign-up', validation.endpoints.signUp, validation.check, async (re
 
   user.token = access.createToken(user);
 
-  res.send(_.omit(user, ['password']));
+  return res.send(_.omit(user, ['password']));
 });
 
 module.exports = router;

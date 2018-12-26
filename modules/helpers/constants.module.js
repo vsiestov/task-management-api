@@ -9,6 +9,7 @@ module.exports.messages = {
   success: 'Your request successfully completed',
   undefinedUser: 'User is not found',
   wrongPassword: 'Your email or password is invalid',
+  userExists: 'Users with this email already exists',
   undefinedRecord: 'Requested record is not found',
   updateProblem: 'Cannot update this item',
   invalid: {

@@ -7,6 +7,7 @@ const tasks = require('../modules/tasks/tasks.module');
 const validation = require('../modules/helpers/validation.module');
 const messages = require('../modules/helpers/messages.module');
 const constants = require('../modules/helpers/constants.module');
+const _ = require('lodash');
 
 router.get('/', access.verifyToken, async (req, res) => {
   const list = await tasks.find({
@@ -36,16 +37,20 @@ router.get('/:id',
 router.post('/',
   access.verifyToken,
   validation.endpoints.tasks.create,
-  validation.check, async (req, res) => {
-    const body = req.body;
+  validation.check, async (req, res, next) => {
+    const body = _.pick(req.body, ['description', 'due']);
 
-    const task = await tasks.create(Object.assign({
-    }, body, {
-      userId: req.user._id,
-      due: new Date(body.due)
-    }));
+    try {
+      const task = await tasks.create(Object.assign({
+      }, body, {
+        userId: req.user._id,
+        due: new Date(body.due)
+      }));
 
-    res.send(task);
+      return res.send(task);
+    } catch ($exception) {
+      return next($exception);
+    }
   });
 
 router.put('/:id',
